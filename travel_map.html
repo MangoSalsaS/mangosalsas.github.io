@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Map</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="name-and-photo">
+                <img src="me.jpg" alt="Isabel Chen" class="profile-pic">
+                <h1><a href="index.html">Isabel Chen</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#experience">Experience</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="travel_map.html">Travel Map</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section id="travel-map" class="card">
+            <h2>Travel Map</h2>
+            <button id="resetMapBtn">Reset View</button>
+            <div id="map"></div>
+        </section>
+
+        <section id="locations-gallery" class="card">
+            <h2>Visited Locations</h2>
+            <div class="gallery-container">
+                <div class="location-item">
+                    <img src="travel/nyc.jpg" alt="New York City">
+                    <h3>New York City</h3>
+                </div>
+                <div class="location-item">
+                    <img src="travel/boston.jpg" alt="Boston">
+                    <h3>Boston</h3>
+                </div>
+                <div class="location-item">
+                    <img src="travel/dc.jpg" alt="Washington D.C.">
+                    <h3>Washington D.C.</h3>
+                </div>
+                <div class="location-item">
+                    <img src="travel/chicago.jpg" alt="Chicago">
+                    <h3>Chicago</h3>
+                </div>
+                <div class="location-item">
+                    <img src="travel/beloit.jpg" alt="Beloit, WI">
+                    <h3>Beloit, WI</h3>
+                </div>
+                <div class="location-item">
+                    <img src="travel/sf.jpg" alt="San Francisco">
+                    <h3>San Francisco</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Isabel Chen. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set its view to the United States
+        var map = L.map('map').setView([37.8, -96], 4);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Array of visited locations with their coordinates
+        var locations = [
+            { name: "New York City, NY", coords: [40.7128, -74.0060] },
+            { name: "Boston, MA", coords: [42.3601, -71.0589] },
+            { name: "Washington D.C.", coords: [38.9072, -77.0369] },
+            { name: "Chicago, IL", coords: [41.8781, -87.6298] },
+            { name: "Beloit, WI", coords: [42.5083, -89.0318] },
+            { name: "San Francisco, CA", coords: [37.7749, -122.4194] }
+        ];
+
+        // Add markers to the map
+        locations.forEach(function(location) {
+            L.marker(location.coords)
+                .bindPopup(location.name)
+                .addTo(map);
+        });
+
+        // Define initial map view coordinates and zoom level
+        const initialMapView = [37.8, -96];
+        const initialZoomLevel = 4;
+
+        // Get the reset button element
+        const resetMapBtn = document.getElementById('resetMapBtn');
+
+        // Add click event listener to the reset button
+        if (resetMapBtn) {
+            resetMapBtn.addEventListener('click', () => {
+                map.setView(initialMapView, initialZoomLevel);
+            });
+        }
+    </script>
+</body>
+</html>
